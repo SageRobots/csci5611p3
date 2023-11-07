@@ -10,7 +10,7 @@ void setup() {
     frameRate(30);
     // initialize the arms accross the bottom of the screen
     for (int i = 0; i < arms.length; i++) {
-        arms[i] = new Arm(4, new Vec2(width/(arms.length+1)*(i+1), height), new Vec2(0, 0));
+        arms[i] = new Arm(4, new Vec2(width/(arms.length-1)*(i), height), new Vec2(0, 0));
     }
     // right_arm = new Arm(4, new Vec2(width/2 + 100, height/2), new Vec2(0, 0));
     // initialize the left arm
