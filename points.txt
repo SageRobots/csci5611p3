@@ -1,0 +1,8 @@
+20 Single arm IK
+20 multi arm IK
+20 joint limits
+10 user interaction
+10 moving IK
+10 TODO 3D camera
+
+80
