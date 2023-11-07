@@ -1,59 +1,43 @@
 // two arm character reaches toward mouse with whichever arm can reach it
 color LIGHT_YELLOW = color(255, 255, 100);
-int a0 = -90;
 boolean increase = true;
+
+Arm[] arms = new Arm[16];
+
 void setup() {
     size(1280, 720, P3D);
     background(255);
     frameRate(30);
+    // initialize the arms accross the bottom of the screen
+    for (int i = 0; i < arms.length; i++) {
+        arms[i] = new Arm(4, new Vec2(width/(arms.length+1)*(i+1), height), new Vec2(0, 0));
+    }
+    // right_arm = new Arm(4, new Vec2(width/2 + 100, height/2), new Vec2(0, 0));
+    // initialize the left arm
+    // left_arm = new Arm(4, new Vec2(width/2 - 100, height/2), new Vec2(0, 0));
 }
 
 void draw() {
     background(255);
-    // draw the body as a large light yellow sphere
     noStroke();
     lights();
-    fill(LIGHT_YELLOW);
-    pushMatrix();
-    // translate to center
-    translate(width/2, height/2, 0);
-    sphere(100);
-    popMatrix();
 
-    // change angle by 1 degree
-    if (increase) {
-        a0++;
-        if (a0 == 90) {
-            increase = false;
-        }
-    } else {
-        a0--;
-        if (a0 == -90) {
-            increase = true;
-        }
+    // draw the body as a large light yellow sphere
+    // fill(LIGHT_YELLOW);
+    // pushMatrix();
+    // // translate to center
+    // translate(width/2, height/2, 0);
+    // sphere(100);
+    // popMatrix();
+
+    // update the arms
+    for (int i = 0; i < arms.length; i++) {
+        arms[i].update();
     }
-
-    // draw one arm as a cylinder with sphere on the ends
-    pushMatrix();
-    translate(width/2, height/2, 0);
-    translate(-100, 0, 0);
-    // rotate 45 degrees
-    rotateZ(radians(a0));
-
-    pushMatrix();
-    // rotate 90 degrees
-    rotateY(radians(90));
-    // draw the upper arm
-    translate(0, 0, -50);
-    draw_cylinder(30, 20, 20, 100);
-    // draw spheres at the ends
-    translate(0, 0, 50);
-    sphere(20);
-    translate(0, 0, -100);
-    sphere(20);
-    popMatrix();
-
-    popMatrix();
+    // draw the arms
+    for (int i = 0; i < arms.length; i++) {
+        arms[i].draw();
+    }
 
 }
 
