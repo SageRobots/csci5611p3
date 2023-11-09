@@ -15,11 +15,13 @@ float dt = 0;
 int root_target_x = 0;
 int root_start_x = 0;
 float c1 = 0.04, c2 = 4, c3 = -100;
+Camera camera;
 
 void setup() {
     size(1280, 720, P3D);
     background(255);
     frameRate(30);
+    camera = new Camera();
     // initialize the body
     body_root = new Vec2(width/2, height-100);
     body = new Arm(2, body_root, 31);
@@ -47,6 +49,7 @@ void setup() {
 }
 
 void draw() {
+    camera.Update(1.0/frameRate);
     dt = 1/frameRate;
     // background light blue
     background(100, 200, 255);
@@ -58,7 +61,7 @@ void draw() {
     fill(255, 255, 200);
     pushMatrix();
     translate(width/2, height-50, 0);
-    box(width*1.5, 100, 100);
+    box(500, 100, 100);
     popMatrix();
 
     // update the body
@@ -279,4 +282,12 @@ void draw_cylinder( int sides, float r1, float r2, float h)
         vertex( x2, y2, halfHeight);
     }
     endShape(CLOSE);
+}
+
+void keyPressed() {
+    camera.HandleKeyPressed();
+}
+
+void keyReleased() {
+    camera.HandleKeyReleased();
 }

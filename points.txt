@@ -3,6 +3,6 @@
 20 joint limits
 10 user interaction
 10 moving IK
-10 TODO 3D camera
+10 3D camera
 
-80
+90
