@@ -1,18 +1,37 @@
 Mountain[] mountains = new Mountain[20];
 Camera camera;
-float x, z, r;
+
+Circle water = new Circle();
+Agent agent = new Agent();
 
 void setup() {
     size(1280, 720, P3D);
+    camera = new Camera();
+    frameRate(60);
+
     for (int i = 0; i < mountains.length; i++) {
         float s = random(50, 250);
         float x = random(-500 + s/2, 500 - s/2) + width/2;
         float z = random(-1000 + s/2, 0 - s/2);
         mountains[i] = new Mountain(s, x, z);
     }
-    camera = new Camera();
 
-    frameRate(60);
+    // initialize water
+    // find a place to put the water that doesn't intersect the mountains
+    float r = water.r;
+    do {
+        water.x = random(-500 + r, 500 - r) + width/2;
+        water.z = random(-1000 + r, 0 - r);
+    } while (collision(water.x, water.z, r));
+
+    // initialize agent
+    r = 15;
+    agent.body.r = r;
+    agent.body.c = color(255, 0, 0);
+    do {
+        agent.body.x = random(-500 + r, 500 - r) + width/2;
+        agent.body.z = random(-1000 + r, 0 - r);
+    } while (collision(agent.body.x, agent.body.z, r));
 }
 
 void draw() {
@@ -38,17 +57,10 @@ void draw() {
     }
 
     // draw blue circle for water
-    fill(0, 100, 255);
-    do {
-        r = 50;
-        x = random(-500 + r, 500 - r) + width/2;
-        z = random(-1000 + r, 0 - r);
-        pushMatrix();
-        translate(x, height-100, z);
-        rotateX(PI/2);
-        circle(0, 0, r);
-        popMatrix();
-    } while (collision(x, z, r));
+    water.draw();
+
+    // draw agent
+    agent.draw();
 
 }
 
