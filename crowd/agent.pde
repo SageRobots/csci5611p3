@@ -15,7 +15,7 @@ public class Circle {
     public void draw() {
         fill(c);
         pushMatrix();
-        translate(x, height-101, z);
+        translate(x, height-104, z);
         rotateX(PI/2);
         circle(0, 0, 2*r);
         popMatrix();

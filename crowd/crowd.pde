@@ -3,6 +3,7 @@ Camera camera;
 
 Circle water = new Circle();
 Agent agent = new Agent();
+PRM prm = new PRM();
 
 void setup() {
     size(1280, 720, P3D);
@@ -32,6 +33,9 @@ void setup() {
         agent.body.x = random(-500 + r, 500 - r) + width/2;
         agent.body.z = random(-1000 + r, 0 - r);
     } while (collision(agent.body.x, agent.body.z, r));
+
+    // initialize the PRM
+    prm.build(mountains, mountains.length);
 }
 
 void draw() {
@@ -55,6 +59,9 @@ void draw() {
     for (int i = 0; i < mountains.length; i++) {
         mountains[i].draw();
     }
+
+    // draw PRM
+    prm.draw();
 
     // draw blue circle for water
     water.draw();
