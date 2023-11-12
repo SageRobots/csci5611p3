@@ -43,7 +43,6 @@ public class Node {
 public class PRM {
     public Node[] nodes = new Node[100];
     public int num_nodes = 0;
-    private ArrayList<Integer> path = new ArrayList();
 
     PRM() {
     }
@@ -119,7 +118,7 @@ public class PRM {
         int start = 0;
         int goal = 1;
         ArrayList<Integer> fringe = new ArrayList();  //Make a new, empty fringe
-        path = new ArrayList(); //Reset path
+        agent.path = new ArrayList(); //Reset path
 
         println("\nBeginning Search");
         
@@ -149,14 +148,19 @@ public class PRM {
         
         print("\nReverse path: ");
         int prevNode = nodes[goal].parent;
-        path.add(0,goal);
+        agent.path.add(0,goal);
         print(goal, " ");
         while (prevNode >= 0){
             print(prevNode," ");
-            path.add(0,prevNode);
+            agent.path.add(0,prevNode);
             prevNode = nodes[prevNode].parent;
         }
         print("\n");
+
+        // if path only has 1 node, then there is no path
+        if (agent.path.size() == 1) {
+            agent.path = new ArrayList();
+        }
     }
 
     public void draw() {
@@ -164,10 +168,15 @@ public class PRM {
             nodes[i].draw();
         }
         // draw path
+        if (agent.path.size() == 0) return;
         stroke(0, 255, 0);
         strokeWeight(3);
-        for (int i = 0; i < path.size()-1; i++) {
-            line(nodes[path.get(i)].x, height-101, nodes[path.get(i)].z, nodes[path.get(i+1)].x, height-101, nodes[path.get(i+1)].z);
+        // draw from agent to first node
+        line(agent.body.x, height-101, agent.body.z, nodes[agent.path.get(0)].x, height-101, nodes[agent.path.get(0)].z);
+        for (int i = 0; i < agent.path.size()-1; i++) {
+            int a = agent.path.get(i);
+            int b = agent.path.get(i+1);
+            line(nodes[a].x, height-101, nodes[a].z, nodes[b].x, height-101, nodes[b].z);
         }
         noStroke();
     }
