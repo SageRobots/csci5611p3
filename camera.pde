@@ -8,8 +8,8 @@ class Camera
 {
   Camera()
   {
-    position      = new PVector( 872, -76, 761 ); // initial position
-    theta         = 0.4; // rotation around Y axis. Starts with forward direction as ( 0, 0, -1 )
+    position      = new PVector( width/2, -100, 761 ); // initial position
+    theta         = 0.0; // rotation around Y axis. Starts with forward direction as ( 0, 0, -1 )
     phi           = -0.5; // rotation around X axis. Starts with up direction as ( 0, 1, 0 )
     moveSpeed     = 50;
     turnSpeed     = 1.57; // radians/sec
